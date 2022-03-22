@@ -4,6 +4,7 @@ import ChatIcon from '@mui/icons-material/Chat';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import SearchIcon from '@mui/icons-material/Search';
 import * as EmailValidator from "email-validator";
+import { auth } from "../firebase";
 
 
 function Sidebar() {
@@ -14,15 +15,15 @@ function Sidebar() {
         );
         if (!input) return null;
 
-        if(EmailValidator.validate(input)) {
-            
+        if (EmailValidator.validate(input)) {
+
         }
     };
 
     return (
         <Container>
             <Header>
-                <UserAvatar />
+                <UserAvatar onClick={() => auth.signOut()} />
 
                 <IconsContainer>
                     <IconButton>
