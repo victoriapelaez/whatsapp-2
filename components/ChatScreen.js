@@ -9,7 +9,7 @@ import { useCollection } from "react-firebase-hooks/firestore";
 import Message from "./Message";
 import InsertEmoticonIcon from "@mui/icons-material/InsertEmoticon";
 import MicIcon from "@mui/icons-material/Mic";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import firebase from "firebase/compat/app";
 import getRecipientEmail from "../utils/getRecipientEmail";
 import TimeAgo from "timeago-react";
@@ -17,6 +17,7 @@ import TimeAgo from "timeago-react";
 function ChatScreen({ chat, messages }) {
     const [user] = useAuthState(auth);
     const [input, setInput] = useState("");
+    const endOfMessagesRef = useRef(null)
     const router = useRouter();
     const [messagesSnapshot] = useCollection(
         db
@@ -55,6 +56,13 @@ function ChatScreen({ chat, messages }) {
         }
     }
 
+    const scrollToBottom = () => {
+        endOfMessagesRef.current.scrollIntoView({
+            behavior: "smooth",
+            block: "start",
+        })
+    }
+
     const sendMessage = (e) => {
         e.preventDefault();
 
@@ -71,6 +79,7 @@ function ChatScreen({ chat, messages }) {
         })
 
         setInput("");
+        scrollToBottom();
     }
 
     const recipient = recipientSnapshot?.docs?.[0]?.data();
@@ -88,7 +97,7 @@ function ChatScreen({ chat, messages }) {
                                 <TimeAgo datetime={recipient?.lastSeen?.toDate()} />
                             ) : "Unavailable"}
                         </p>
-                    ): (
+                    ) : (
                         <p>Loanding last active...</p>
                     )}
                 </HeaderInformation>
@@ -104,7 +113,7 @@ function ChatScreen({ chat, messages }) {
 
             <MessageContainer>
                 {showMessages()}
-                <EndOfMessage />
+                <EndOfMessage ref={endOfMessagesRef} />
             </MessageContainer>
             <InputContainer>
                 <InsertEmoticonIcon />
@@ -161,7 +170,7 @@ min-height: 90vh;
 `;
 
 const EndOfMessage = styled.div`
-
+margin-bottom: 50px;
 `;
 
 const InputContainer = styled.form`
