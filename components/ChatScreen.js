@@ -11,6 +11,8 @@ import InsertEmoticonIcon from "@mui/icons-material/InsertEmoticon";
 import MicIcon from "@mui/icons-material/Mic";
 import { useState } from "react";
 import firebase from "firebase/compat/app";
+import getRecipientEmail from "../utils/getRecipientEmail";
+import TimeAgo from "timeago-react";
 
 function ChatScreen({ chat, messages }) {
     const [user] = useAuthState(auth);
@@ -22,6 +24,12 @@ function ChatScreen({ chat, messages }) {
             .doc(router.query.id)
             .collection('messages')
             .orderBy('timestamp', 'asc')
+    );
+
+    const [recipientSnapshot] = useCollection(
+        db
+            .collection('users')
+            .where('email', '==', getRecipientEmail(chat.users, user))
     );
 
     const showMessages = () => {
@@ -65,13 +73,24 @@ function ChatScreen({ chat, messages }) {
         setInput("");
     }
 
+    const recipient = recipientSnapshot?.docs?.[0]?.data();
+    const recipientEmail = getRecipientEmail(chat.users, user)
+
     return (
         <Container>
             <Header>
                 <Avatar />
                 <HeaderInformation>
-                    <h3>Rec Email</h3>
-                    <p>Last Seen...</p>
+                    <h3>{recipientEmail}</h3>
+                    {recipientSnapshot ? (
+                        <p>Last active: {" "}
+                            {recipient?.lastSeen?.toDate() ? (
+                                <TimeAgo datetime={recipient?.lastSeen?.toDate()} />
+                            ) : "Unavailable"}
+                        </p>
+                    ): (
+                        <p>Loanding last active...</p>
+                    )}
                 </HeaderInformation>
                 <HeaderIcons>
                     <IconButton>
