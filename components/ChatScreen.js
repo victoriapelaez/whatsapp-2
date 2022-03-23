@@ -9,9 +9,12 @@ import { useCollection } from "react-firebase-hooks/firestore";
 import Message from "./Message";
 import InsertEmoticonIcon from "@mui/icons-material/InsertEmoticon";
 import MicIcon from "@mui/icons-material/Mic";
+import { useState } from "react";
+import firebase from "firebase/compat/app";
 
 function ChatScreen({ chat, messages }) {
     const [user] = useAuthState(auth);
+    const [input, setInput] = useState("");
     const router = useRouter();
     const [messagesSnapshot] = useCollection(
         db
@@ -32,8 +35,34 @@ function ChatScreen({ chat, messages }) {
                         timestamp: message.data().timestamp?.toDate().getTime(),
                     }}
                 />
+            ));
+        } else {
+            return JSON.parse(messages).map(message => (
+                <Message
+                    key={message.id}
+                    user={message.user}
+                    message={message}
+                />
             ))
         }
+    }
+
+    const sendMessage = (e) => {
+        e.preventDefault();
+
+        //update the last seen
+        db.collection('users').doc(user.uid).set({
+            lastSeen: firebase.firestore.FieldValue.serverTimestamp()
+        }), { merge: true }
+
+        db.collection('chats').doc(router.query.id).collection('messages').add({
+            timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+            message: input,
+            user: user.email,
+            photoUrl: user.photoURL,
+        })
+
+        setInput("");
     }
 
     return (
@@ -55,12 +84,13 @@ function ChatScreen({ chat, messages }) {
             </Header>
 
             <MessageContainer>
-                {/* {showMessages()} */}
+                {showMessages()}
                 <EndOfMessage />
             </MessageContainer>
             <InputContainer>
                 <InsertEmoticonIcon />
-                <Input />
+                <Input value={input} onChange={e => setInput(e.target.value)} />
+                <button hidden disabled={!input} type="submit" onClick={sendMessage}>Send Message</button>
                 <MicIcon />
             </InputContainer>
 
