@@ -37,8 +37,9 @@ function Login() {
 export default Login
 
 const Container = styled.div`
-display: grid;
-place-items: center;
+display: flex;
+justify-content: center;
+align-items: center;
 height: 100vh;
 background-color: whitesmoke;
 `; 
