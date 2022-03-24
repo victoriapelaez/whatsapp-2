@@ -1,15 +1,34 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { LoginForm } from "./loginForm";
+<<<<<<< HEAD
 import { motion } from "framer-motion";
 import { AccountContext } from "./accountContext";
 import { SignupForm } from "./signupForm";
+=======
+>>>>>>> dev
 
 
 
 export function AccountBox(props) {
+<<<<<<< HEAD
     const [isExpanded, setExpanded] = useState(false);
     const [active, setActive] = useState("signin");
+=======
+    return <BoxContainer>
+        <TopContainer>
+            <BackDrop />
+            <HeaderContainer>
+                <HeaderText>Welcome</HeaderText>
+                <HeaderText>to Whatsapp</HeaderText>
+                <SmallText>Please sign-in to continue</SmallText>
+            </HeaderContainer>
+        </TopContainer>
+        <InnerContainer>
+            <LoginForm />
+        </InnerContainer>
+    </BoxContainer>
+>>>>>>> dev
 
     const playExpandingAnimation = () => {
         setExpanded(true);
@@ -135,6 +154,7 @@ display: flex;
 flex-direction: column;
 padding: 0 1.8em;
 `
+<<<<<<< HEAD
 const backdropVariants = {
     expanded: {
         width: "233%",
@@ -156,3 +176,5 @@ const expandingTransition = {
     duration: 2.3,
     stiffness: 30,
 };
+=======
+>>>>>>> dev
