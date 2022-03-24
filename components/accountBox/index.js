@@ -47,9 +47,9 @@ export function AccountBox() {
                     <HeaderContainer>
                         <HeaderText>Welcome</HeaderText>
                         <HeaderText>to Whatsapp</HeaderText>
+                        <Logo src='http://assets.stickpng.com/images/580b57fcd9996e24bc43c543.png' />
                         <SmallText>Please sign-in to continue</SmallText>
                     </HeaderContainer>
-
                 )}
                 {active === "signup" && (
                     <HeaderContainer>
@@ -64,9 +64,21 @@ export function AccountBox() {
                 {active === "signin" && <LoginForm />}
                 {active === "signup" && <SignupForm />}
             </InnerContainer>
+            
         </BoxContainer>
     </AccountContext.Provider >
 }
+
+const Logo = styled.img`
+position: absolute;
+left: 190px;
+top:25px;
+align-self: center;
+margin-top: 1em;
+margin-bottom: 1em;
+width: 60px;
+height: 60px;
+`;
 
 const BoxContainer = styled.div`
 width: 280px;
