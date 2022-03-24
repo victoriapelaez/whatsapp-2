@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import { AccountContext } from "./accountContext";
 import { SignupForm } from "./signupForm";
 
+
 export function AccountBox() {
 
     const [isExpanded, setExpanded] = useState(false);
@@ -63,11 +64,12 @@ export function AccountBox() {
             <InnerContainer>
                 {active === "signin" && <LoginForm />}
                 {active === "signup" && <SignupForm />}
+                        
             </InnerContainer>
-            
         </BoxContainer>
     </AccountContext.Provider >
 }
+
 
 const Logo = styled.img`
 position: absolute;

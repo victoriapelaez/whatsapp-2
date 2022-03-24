@@ -13,6 +13,7 @@ function MyApp({ Component, pageProps }) {
     if (user) {
       db.collection('users').doc(user.id).set(
         {
+          
           email: user.email,
           lastSeen: firebase.firestore.FieldValue.serverTimestamp(),
           photoURL: user.photoURL,
