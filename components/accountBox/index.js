@@ -12,7 +12,7 @@ export function AccountBox() {
     const [active, setActive] = useState("signin");
 
     const playExpandingAnimation = () => {
-        setExpanded(true);
+         setExpanded(true); 
         setTimeout(() => {
             setExpanded(false);
         }, expandingTransition.duration * 1000 - 1500);
@@ -154,7 +154,7 @@ const backdropVariants = {
         width: "233%",
         heigth: "1050px",
         borderRadius: "20%",
-        transform: "rotate(60deg)",
+        transform: "scale(1)",
 
     },
     collapsed: {
