@@ -7,7 +7,7 @@ import styled from "styled-components";
 
 export function LoginForm() {
 
-    const signIn = () => {
+    const signInGoogle = () => {
         auth.signInWithPopup(provider).catch(alert)
     };
 
@@ -25,7 +25,7 @@ export function LoginForm() {
             <Marginer direction="vertical" margin="1.4em" />
             <SubmitButton type="submit">Sign In</SubmitButton>
             <Marginer direction="vertical" margin="1em" />
-            <GoogleButton onClick={signIn} variant="outlined">Google</GoogleButton>
+            <GoogleButton onClick={signInGoogle} variant="outlined">Google</GoogleButton>
             <Marginer direction="vertical" margin="1em" />
             <MutedLink href="#">Dont have an account?{" "}
                 <BoldLink href="#" onClick={switchToSignup}>Sign up</BoldLink>
