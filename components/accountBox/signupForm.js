@@ -9,41 +9,31 @@ import { auth } from '../../firebase'
 
 export function SignupForm() {
 
-    /* const register = async ({ fullname, email, password }) => {
-        const resp = await firebase.auth()
-            .createUserWithEmailAndPassword(fullname, email, password);
-        return resp.user;
-    }; */
+    const [form, setForm] = useState({
+        fullname: "",
+        email: "",
+        password: ""
+    })
 
-
-    const [fullname, setFullname] = useState("")
-    const [email, setEmail] = useState("")
-    const [password, setPassword] = useState("")
-
-    const changeFullname = (e) => setFullname(e.target.value)
-    const changeEmail = (e) => setEmail(e.target.value)
-    const changePassword = (e) => setPassword(e.target.value)
-
-    const sendData = (e) => e.preventDefault()
-
-
-    /* const handleSubmit = async (e) => {
-        e.preventDefault();
-        await register(form);
-
-    } */
+    const sendData = (e) => {
+        e.preventDefault()
+        console.log(form);
+    }
 
     const { switchToSignin } = useContext(AccountContext);
     return (
         <BoxContainer>
             <FormContainer onSubmit={sendData}>
 
-                <Input type="text" placeholder="Full Name" value={fullname}
-                    onChange={changeFullname} />
-                <Input type="email" placeholder="Email" value={email}
-                    onChange={changeEmail} />
-                <Input type="password" placeholder="Password" value={password}
-                    onChange={changePassword} />
+                <Input type="text" placeholder="Full Name" value={form.fullname}
+                    onChange={(e) =>
+                        setForm({ ...form, fullname: e.target.value })} />
+                <Input type="email" placeholder="Email" value={form.email}
+                    onChange={(e) =>
+                        setForm({ ...form, email: e.target.value })} />
+                <Input type="password" placeholder="Password" value={form.password}
+                    onChange={(e) =>
+                        setForm({ ...form, password: e.target.value })} />
                 {/* <Input type="password" placeholder="Confirm Password" /> */}
 
                 <Marginer direction="vertical" margin="1.4em" />
