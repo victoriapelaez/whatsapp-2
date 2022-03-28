@@ -2,7 +2,7 @@ import styled from "styled-components"
 import { auth, db } from "../firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useRouter } from "next/router";
-import { Avatar, IconButton } from "@material-ui/core";
+import { Avatar, Button, IconButton } from "@material-ui/core";
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import AttachFileIcon from "@mui/icons-material/AttachFile";
 import { useCollection } from "react-firebase-hooks/firestore";
@@ -13,11 +13,17 @@ import { useRef, useState } from "react";
 import firebase from "firebase/compat/app";
 import getRecipientEmail from "../utils/getRecipientEmail";
 import TimeAgo from "timeago-react";
+import dynamic from "next/dynamic";
+import { width } from "@mui/system";
+const Picker = dynamic(() => import('emoji-picker-react'), { ssr: false });
 
 function ChatScreen({ chat, messages }) {
     const [user] = useAuthState(auth);
     const [input, setInput] = useState("");
     const endOfMessagesRef = useRef(null)
+    const recipient = recipientSnapshot?.docs?.[0]?.data();
+    const recipientEmail = getRecipientEmail(chat.users, user)
+    const [showPicker, setShowPicker] = useState(false)
     const router = useRouter();
     const [messagesSnapshot] = useCollection(
         db
@@ -82,56 +88,68 @@ function ChatScreen({ chat, messages }) {
         scrollToBottom();
     }
 
-    const recipient = recipientSnapshot?.docs?.[0]?.data();
-    const recipientEmail = getRecipientEmail(chat.users, user)
+    const onEmojiClick = (event, emojiObject) => {
+        setInput(prevInput => prevInput + emojiObject.emoji)
+        setShowPicker(false);
+      };
+  
+    const emojiButton = (e) => {
+        e.preventDefault
+        return(
+            console.log("hola")
+        )
+    }
 
-    return (
-        <Container>
-            <Header>
+return (
+    <Container>
+        <Header>
+            {recipient ? (
+                <Avatar src={recipient?.photoURL} />
+            ) : (
+                <Avatar>{recipientEmail[0]}</Avatar>
+            )}
+            <HeaderInformation>
                 {recipient ? (
-                    <Avatar src={recipient?.photoURL} />
+                    <h3>{recipient?.name}</h3>
                 ) : (
-                    <Avatar>{recipientEmail[0]}</Avatar>
+                    <h3>{recipientEmail}</h3>
                 )}
-                <HeaderInformation>
-                    {recipient ? (
-                        <h3>{recipient?.name}</h3>
-                    ) : (
-                        <h3>{recipientEmail}</h3>
-                    )}
-                    {recipientSnapshot ? (
-                        <p>Last active: {" "}
-                            {recipient?.lastSeen?.toDate() ? (
-                                <TimeAgo datetime={recipient?.lastSeen?.toDate()} />
-                            ) : "Unavailable"}
-                        </p>
-                    ) : (
-                        <p>Loanding last active...</p>
-                    )}
-                </HeaderInformation>
-                <HeaderIcons>
-                    <IconButton>
-                        <AttachFileIcon />
-                    </IconButton>
-                    <IconButton>
-                        <MoreVertIcon />
-                    </IconButton>
-                </HeaderIcons>
-            </Header>
+                {recipientSnapshot ? (
+                    <p>Last active: {" "}
+                        {recipient?.lastSeen?.toDate() ? (
+                            <TimeAgo datetime={recipient?.lastSeen?.toDate()} />
+                        ) : "Unavailable"}
+                    </p>
+                ) : (
+                    <p>Loanding last active...</p>
+                )}
+            </HeaderInformation>
+            <HeaderIcons>
+                <IconButton>
+                    <AttachFileIcon />
+                </IconButton>
+                <IconButton>
+                    <MoreVertIcon />
+                </IconButton>
+            </HeaderIcons>
+        </Header>
 
-            <MessageContainer>
-                {showMessages()}
-                <EndOfMessage ref={endOfMessagesRef} />
-            </MessageContainer>
-            <InputContainer>
-                <InsertEmoticonIcon />
-                <Input value={input} onChange={e => setInput(e.target.value)} />
-                <button hidden disabled={!input} type="submit" onClick={sendMessage}>Send Message</button>
-                <MicIcon />
-            </InputContainer>
+        <MessageContainer>
+            {showMessages()}
+            <EndOfMessage ref={endOfMessagesRef} />
+        </MessageContainer>
+        <InputContainer>
+            <IconButton>
+                <InsertEmoticonIcon onClick={()=>setShowPicker(val=>!val)} />
+            </IconButton>
+            <Input value={input} onChange={e => setInput(e.target.value)} />
+            <button hidden disabled={!input} type="submit" onClick={sendMessage}>Send Message</button>
+            <MicIcon />
+        </InputContainer>
+            {showPicker && <Picker onEmojiClick={onEmojiClick} pickerStyle={{width:'100%'}}/>}
 
-        </Container>
-    )
+    </Container>
+)
 
 }
 
