@@ -88,7 +88,11 @@ function ChatScreen({ chat, messages }) {
     return (
         <Container>
             <Header>
-                <Avatar />
+                {recipient ? (
+                    <Avatar src={recipient?.photoURL} />
+                ) : (
+                    <Avatar>{recipientEmail[0]}</Avatar>
+                )}
                 <HeaderInformation>
                     {recipient ? (
                         <h3>{recipient?.name}</h3>
