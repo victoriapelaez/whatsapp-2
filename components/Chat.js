@@ -27,7 +27,12 @@ function Chat({ id, users }) {
             ) : (
                 <UserAvatar>{recipientEmail[0]}</UserAvatar>
             )}
-            <p>{recipientEmail}</p>
+            {recipient ? (
+                <p>{recipient?.name}</p>
+            ) : (
+                <p>{recipientEmail}</p>
+            )}
+
         </Container>
     )
 }

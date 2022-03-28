@@ -6,6 +6,7 @@ import Loading from '../components/Loading';
 import { useEffect } from 'react';
 import firebase from 'firebase/compat/app';
 
+
 function MyApp({ Component, pageProps }) {
   const [user, loading] = useAuthState(auth);
 
@@ -13,7 +14,7 @@ function MyApp({ Component, pageProps }) {
     if (user) {
       db.collection('users').doc(user.id).set(
         {
-          
+          name:user.displayName,
           email: user.email,
           lastSeen: firebase.firestore.FieldValue.serverTimestamp(),
           photoURL: user.photoURL,
@@ -22,7 +23,6 @@ function MyApp({ Component, pageProps }) {
         );
     }
   }, [user]);
-
   if (loading) return <Loading />
   if (!user) return <Login />
 
