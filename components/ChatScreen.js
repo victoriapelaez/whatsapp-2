@@ -13,12 +13,17 @@ import { useRef, useState } from "react";
 import firebase from "firebase/compat/app";
 import getRecipientEmail from "../utils/getRecipientEmail";
 import TimeAgo from "timeago-react";
-
+import dynamic from "next/dynamic";
+import { width } from "@mui/system";
+const Picker = dynamic(() => import('emoji-picker-react'), { ssr: false });
 
 function ChatScreen({ chat, messages }) {
     const [user] = useAuthState(auth);
     const [input, setInput] = useState("");
     const endOfMessagesRef = useRef(null)
+    const recipient = recipientSnapshot?.docs?.[0]?.data();
+    const recipientEmail = getRecipientEmail(chat.users, user)
+    const [showPicker, setShowPicker] = useState(false)
     const router = useRouter();
     const [messagesSnapshot] = useCollection(
         db
@@ -83,8 +88,10 @@ function ChatScreen({ chat, messages }) {
         scrollToBottom();
     }
 
-    const recipient = recipientSnapshot?.docs?.[0]?.data();
-    const recipientEmail = getRecipientEmail(chat.users, user)
+    const onEmojiClick = (event, emojiObject) => {
+        setInput(prevInput => prevInput + emojiObject.emoji)
+        setShowPicker(false);
+      };
   
     const emojiButton = (e) => {
         e.preventDefault
@@ -133,13 +140,13 @@ return (
         </MessageContainer>
         <InputContainer>
             <IconButton>
-                <InsertEmoticonIcon onClick={emojiButton}>
-                </InsertEmoticonIcon>
+                <InsertEmoticonIcon onClick={()=>setShowPicker(val=>!val)} />
             </IconButton>
             <Input value={input} onChange={e => setInput(e.target.value)} />
             <button hidden disabled={!input} type="submit" onClick={sendMessage}>Send Message</button>
             <MicIcon />
         </InputContainer>
+            {showPicker && <Picker onEmojiClick={onEmojiClick} pickerStyle={{width:'100%'}}/>}
 
     </Container>
 )
