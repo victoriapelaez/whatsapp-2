@@ -90,7 +90,11 @@ function ChatScreen({ chat, messages }) {
             <Header>
                 <Avatar />
                 <HeaderInformation>
-                    <h3>{recipientEmail}</h3>
+                    {recipient ? (
+                        <h3>{recipient?.name}</h3>
+                    ) : (
+                        <h3>{recipientEmail}</h3>
+                    )}
                     {recipientSnapshot ? (
                         <p>Last active: {" "}
                             {recipient?.lastSeen?.toDate() ? (
