@@ -2,7 +2,7 @@ import styled from "styled-components"
 import { auth, db } from "../firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useRouter } from "next/router";
-import { Avatar, IconButton } from "@material-ui/core";
+import { Avatar, Button, IconButton } from "@material-ui/core";
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import AttachFileIcon from "@mui/icons-material/AttachFile";
 import { useCollection } from "react-firebase-hooks/firestore";
@@ -13,6 +13,7 @@ import { useRef, useState } from "react";
 import firebase from "firebase/compat/app";
 import getRecipientEmail from "../utils/getRecipientEmail";
 import TimeAgo from "timeago-react";
+
 
 function ChatScreen({ chat, messages }) {
     const [user] = useAuthState(auth);
@@ -84,54 +85,64 @@ function ChatScreen({ chat, messages }) {
 
     const recipient = recipientSnapshot?.docs?.[0]?.data();
     const recipientEmail = getRecipientEmail(chat.users, user)
+  
+    const emojiButton = (e) => {
+        e.preventDefault
+        return(
+            console.log("hola")
+        )
+    }
 
-    return (
-        <Container>
-            <Header>
+return (
+    <Container>
+        <Header>
+            {recipient ? (
+                <Avatar src={recipient?.photoURL} />
+            ) : (
+                <Avatar>{recipientEmail[0]}</Avatar>
+            )}
+            <HeaderInformation>
                 {recipient ? (
-                    <Avatar src={recipient?.photoURL} />
+                    <h3>{recipient?.name}</h3>
                 ) : (
-                    <Avatar>{recipientEmail[0]}</Avatar>
+                    <h3>{recipientEmail}</h3>
                 )}
-                <HeaderInformation>
-                    {recipient ? (
-                        <h3>{recipient?.name}</h3>
-                    ) : (
-                        <h3>{recipientEmail}</h3>
-                    )}
-                    {recipientSnapshot ? (
-                        <p>Last active: {" "}
-                            {recipient?.lastSeen?.toDate() ? (
-                                <TimeAgo datetime={recipient?.lastSeen?.toDate()} />
-                            ) : "Unavailable"}
-                        </p>
-                    ) : (
-                        <p>Loanding last active...</p>
-                    )}
-                </HeaderInformation>
-                <HeaderIcons>
-                    <IconButton>
-                        <AttachFileIcon />
-                    </IconButton>
-                    <IconButton>
-                        <MoreVertIcon />
-                    </IconButton>
-                </HeaderIcons>
-            </Header>
+                {recipientSnapshot ? (
+                    <p>Last active: {" "}
+                        {recipient?.lastSeen?.toDate() ? (
+                            <TimeAgo datetime={recipient?.lastSeen?.toDate()} />
+                        ) : "Unavailable"}
+                    </p>
+                ) : (
+                    <p>Loanding last active...</p>
+                )}
+            </HeaderInformation>
+            <HeaderIcons>
+                <IconButton>
+                    <AttachFileIcon />
+                </IconButton>
+                <IconButton>
+                    <MoreVertIcon />
+                </IconButton>
+            </HeaderIcons>
+        </Header>
 
-            <MessageContainer>
-                {showMessages()}
-                <EndOfMessage ref={endOfMessagesRef} />
-            </MessageContainer>
-            <InputContainer>
-                <InsertEmoticonIcon />
-                <Input value={input} onChange={e => setInput(e.target.value)} />
-                <button hidden disabled={!input} type="submit" onClick={sendMessage}>Send Message</button>
-                <MicIcon />
-            </InputContainer>
+        <MessageContainer>
+            {showMessages()}
+            <EndOfMessage ref={endOfMessagesRef} />
+        </MessageContainer>
+        <InputContainer>
+            <IconButton>
+                <InsertEmoticonIcon onClick={emojiButton}>
+                </InsertEmoticonIcon>
+            </IconButton>
+            <Input value={input} onChange={e => setInput(e.target.value)} />
+            <button hidden disabled={!input} type="submit" onClick={sendMessage}>Send Message</button>
+            <MicIcon />
+        </InputContainer>
 
-        </Container>
-    )
+    </Container>
+)
 
 }
 
