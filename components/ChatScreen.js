@@ -15,6 +15,9 @@ import getRecipientEmail from "../utils/getRecipientEmail";
 import TimeAgo from "timeago-react";
 import dynamic from "next/dynamic";
 const Picker = dynamic(() => import('emoji-picker-react'), { ssr: false });
+import CameraIcon from '@mui/icons-material/CameraAltOutlined';
+
+
 
 function ChatScreen({ chat, messages }) {
     const [user] = useAuthState(auth);
@@ -139,6 +142,11 @@ function ChatScreen({ chat, messages }) {
                 </IconButton>
                 <Input value={input} onChange={e => setInput(e.target.value)} />
                 <button hidden disabled={!input} type="submit" onClick={sendMessage}>Send Message</button>
+                <IconButton>
+                    <CameraIcon>
+                        
+                    </CameraIcon>
+                </IconButton>
                 <MicIcon />
             </InputContainer>
             {showPicker && <Picker onEmojiClick={onEmojiClick} pickerStyle={{ width: '100%' }} />}
