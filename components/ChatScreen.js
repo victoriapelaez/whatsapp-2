@@ -18,7 +18,6 @@ const Picker = dynamic(() => import('emoji-picker-react'), { ssr: false });
 import CameraIcon from '@mui/icons-material/CameraAltOutlined';
 
 
-
 function ChatScreen({ chat, messages }) {
     const [user] = useAuthState(auth);
     const [input, setInput] = useState("");
@@ -144,7 +143,7 @@ function ChatScreen({ chat, messages }) {
                 <button hidden disabled={!input} type="submit" onClick={sendMessage}>Send Message</button>
                 <IconButton>
                     <CameraIcon>
-                        
+
                     </CameraIcon>
                 </IconButton>
                 <MicIcon />
@@ -164,14 +163,13 @@ const Container = styled.div`
 
 const Header = styled.div`
 position: sticky;
-background-color: white;
+background-color: #DBF4EA;
 z-index: 100;
 top: 0;
 display: flex;
 padding: 11px;
 height: 80px;
 align-items: center;
-border-bottom: 1px solid whitesmoke;
 `;
 
 const HeaderInformation = styled.div`
@@ -180,11 +178,12 @@ flex: 1;
 
 > h3 {
     margin-bottom: 3px;
+    color: #234839 ;
 }
 
 > p {
     font-size: 14px;
-    color: gray;
+    color: #234839 ;
 }
 
 `;
@@ -194,7 +193,11 @@ const HeaderIcons = styled.div`
 
 const MessageContainer = styled.div`
 padding: 30px;
-background-color: #e5ded8;
+/* background-color: #e5ded8; */
+background-image: url('https://i.pinimg.com/originals/02/ad/c5/02adc54365008df9b103f238605e3ace.jpg');
+background-position: center;
+background-size: cover;
+background-repeat: no-repeat;
 min-height: 90vh;
 `;
 
@@ -208,7 +211,7 @@ align-items: center;
 padding: 10px;
 position: sticky;
 bottom: 0;
-background-color: white;
+background-color: #DBF4EA;
 z-index: 100;
 `;
 

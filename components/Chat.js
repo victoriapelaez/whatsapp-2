@@ -26,12 +26,12 @@ function Chat({ id, users }) {
             .then(() => {
                 console.log("Chat Borrado")
             });
-        {/* <Redirect to="/chats" /> */}
+        {/* <Redirect to="/chats" /> */ }
     }
 
-    
 
-     useEffect(() => {
+
+    useEffect(() => {
         db.collection('chats')
             .get()
             .then(querySnapshot => {
@@ -40,7 +40,7 @@ function Chat({ id, users }) {
                     console.log(chatId)
                 });
             });
-    }, []); 
+    }, []);
 
     const recipient = recipientSnapshot?.docs?.[0]?.data()
     const recipientEmail = getRecipientEmail(users, user)
@@ -53,9 +53,9 @@ function Chat({ id, users }) {
                 <UserAvatar>{recipientEmail[0]}</UserAvatar>
             )}
             {recipient ? (
-                <p style={{marginRight:'auto'}}>{recipient?.name}</p>
+                <p style={{ marginRight: 'auto' }}>{recipient?.name}</p>
             ) : (
-                <p style={{marginRight:'auto'}}>{recipientEmail}</p>
+                <p style={{ marginRight: 'auto' }}>{recipientEmail}</p>
             )}
             {/* <IconButton onClick={() => handleDel(id)}
                 id={id}
@@ -65,7 +65,7 @@ function Chat({ id, users }) {
             >
                 <CloseIcon style={{ fontSize: 10 }} />
             </IconButton>
-            
+
         </Container>
     )
 }
@@ -79,9 +79,10 @@ justify-content:space-between;
 cursor: pointer;
 padding: 15px;
 word-break: break-word;
+background-color: white;
 
 :hover{
-    background-color: #e9eaeb;
+    background-color: #DBF4EA ;
 }
 `;
 

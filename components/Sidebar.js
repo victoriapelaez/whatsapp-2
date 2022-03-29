@@ -70,12 +70,12 @@ export default Sidebar;
 
 const Container = styled.div`
 flex: 0.45;
-border-right: 1px solid whitesmoke;
 height: 100vh;
-min-width: 300px;
+min-width: 400px;
 max-width: 350px;
 overflow-y: scroll;
-
+background-color: white;
+border-left: 40px solid #DBF4EA;
 ::-webkit-scrollbar{
     display: none;
 }
@@ -88,24 +88,28 @@ const Search = styled.div`
 display: flex;
 align-items: center;
 padding: 20px;
-border-radius: 2px;`;
+border-radius: 2px;
+`;
 
 const SidebarButton = styled(Button)`
 width: 100%;
+
 &&& {
     border-top: 1px solid whitesmoke;
     border-bottom: 1px solid whitesmoke;
+    color: #234839;
 }
 `;
 
 const SearchInput = styled.input`
 outline-width: 0;
 border: none;
+border-radius: 10px;
 flex: 1;
+background-color: white;
 `;
 
 const Header = styled.div`
-background-color: white;
 display: flex;
 position: sticky;
 top: 0;
@@ -114,7 +118,7 @@ justify-content: space-between;
 align-items: center;
 padding: 15px;
 height: 80px;
-border-bottom: 1px solid whitesmoke;
+background-color: white;
 
 `;
 
