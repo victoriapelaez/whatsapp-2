@@ -1,13 +1,13 @@
-import { Avatar, IconButton } from "@material-ui/core";
+import { Avatar } from "@material-ui/core";
 import styled from "styled-components"
-import ChatIcon from '@mui/icons-material/Chat';
 import SearchIcon from '@mui/icons-material/Search';
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useCollection } from "react-firebase-hooks/firestore"
 import { auth, db } from "../firebase";
 import Chat from "../components/Chat";
-import UserMenu from '../components/UserMenu'
+import UserMenu from '../components/Menu/UserMenu'
 import FormChat from '../components/FormChat'
+import FormChatGroup from '../components/FormChatGroup'
 
 function Sidebar() {
     const [user] = useAuthState(auth);
@@ -19,9 +19,7 @@ function Sidebar() {
             <Header>
                 <UserAvatar src={user.photoURL} onClick={() => auth.signOut()} />
                 <IconsContainer>
-                    <IconButton>
-                        <ChatIcon />
-                    </IconButton>
+                    <FormChatGroup />
                     <UserMenu />
                 </IconsContainer>
             </Header>
@@ -36,6 +34,7 @@ function Sidebar() {
             {chatsSnapshot?.docs.map((chat) => (
                 <Chat key={chat.id} id={chat.id} users={chat.data().users} />
             ))}
+
         </Container>
     );
 }
