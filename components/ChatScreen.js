@@ -4,7 +4,6 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { useRouter } from "next/router";
 import { Avatar, IconButton } from "@material-ui/core";
 import MoreVertIcon from '@mui/icons-material/MoreVert';
-import AttachFileIcon from "@mui/icons-material/AttachFile";
 import { useCollection } from "react-firebase-hooks/firestore";
 import Message from "./Message";
 import InsertEmoticonIcon from "@mui/icons-material/InsertEmoticon";
@@ -16,6 +15,7 @@ import TimeAgo from "timeago-react";
 import dynamic from "next/dynamic";
 const Picker = dynamic(() => import('emoji-picker-react'), { ssr: false });
 import CameraIcon from '@mui/icons-material/CameraAltOutlined';
+import FadeMenu from "./Menu";
 
 
 function ChatScreen({ chat, messages }) {
@@ -122,15 +122,12 @@ function ChatScreen({ chat, messages }) {
                     )}
                 </HeaderInformation>
                 <HeaderIcons>
-                    <IconButton>
-                        <AttachFileIcon />
-                    </IconButton>
+                    <FadeMenu />
                     <IconButton>
                         <MoreVertIcon />
                     </IconButton>
                 </HeaderIcons>
             </Header>
-
             <MessageContainer>
                 {showMessages()}
                 <EndOfMessage ref={endOfMessagesRef} />
@@ -190,6 +187,7 @@ flex: 1;
 
 `;
 const HeaderIcons = styled.div`
+display: flex;
 
 `;
 
