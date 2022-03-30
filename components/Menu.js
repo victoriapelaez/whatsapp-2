@@ -37,9 +37,8 @@ function FadeMenu() {
                 onClose={handleClose}
                 TransitionComponent={Fade}
             >
-                <MenuItem onClick={handleClose}>Add Image</MenuItem>
-                <MenuItem onClick={handleClose}>Profile</MenuItem>
-                <MenuItem onClick={() => auth.signOut()}>Logout</MenuItem>
+                <MenuItem onClick={handleClose}>Send Image</MenuItem>
+                <MenuItem onClick={handleClose}>Send Document</MenuItem>
             </Menu>
         </div>
     );
