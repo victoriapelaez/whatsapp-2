@@ -6,8 +6,8 @@ import { useCollection } from "react-firebase-hooks/firestore"
 import { auth, db } from "../firebase";
 import Chat from "../components/Chat";
 import UserMenu from '../components/Menu/UserMenu'
-import FormChat from '../components/FormChat'
-import FormChatGroup from '../components/FormChatGroup'
+import FormChat from '../components/FormsCreateChats/FormChat'
+import FormChatGroup from '../components/FormsCreateChats/FormChatGroup'
 
 function Sidebar() {
     const [user] = useAuthState(auth);
