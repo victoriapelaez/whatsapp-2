@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { auth, db } from "../firebase";
+import { auth, db } from "../../firebase";
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Fade from '@mui/material/Fade';

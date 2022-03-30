@@ -15,7 +15,7 @@ import TimeAgo from "timeago-react";
 import dynamic from "next/dynamic";
 const Picker = dynamic(() => import('emoji-picker-react'), { ssr: false });
 import CameraIcon from '@mui/icons-material/CameraAltOutlined';
-import FadeMenu from "./Menu";
+import FadeMenu from "../components/Menu/Menu";
 
 
 function ChatScreen({ chat, messages }) {
