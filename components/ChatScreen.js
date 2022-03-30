@@ -146,7 +146,9 @@ function ChatScreen({ chat, messages }) {
 
                     </CameraIcon>
                 </IconButton>
-                <MicIcon />
+                <IconButton>
+                    <MicIcon />
+                </IconButton>
             </InputContainer>
             {showPicker && <Picker onEmojiClick={onEmojiClick} pickerStyle={{ width: '100%' }} />}
 
