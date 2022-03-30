@@ -1,19 +1,18 @@
 import { Avatar, Button, IconButton } from "@material-ui/core";
 import styled from "styled-components"
 import ChatIcon from '@mui/icons-material/Chat';
-import MoreVertIcon from '@mui/icons-material/MoreVert';
 import SearchIcon from '@mui/icons-material/Search';
 import * as EmailValidator from "email-validator";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useCollection } from "react-firebase-hooks/firestore"
 import { auth, db } from "../firebase";
 import Chat from "../components/Chat";
+import UserMenu from '../components/UserMenu'
 
 function Sidebar() {
     const [user] = useAuthState(auth);
     const userChatRef = db.collection('chats').where('users', 'array-contains', user.email)
     const [chatsSnapshot] = useCollection(userChatRef)
-
 
     const createChat = () => {
         const input = prompt(
@@ -45,9 +44,9 @@ function Sidebar() {
                     <IconButton>
                         <ChatIcon />
                     </IconButton>
-                    <IconButton>
-                        <MoreVertIcon />
-                    </IconButton>
+
+                    <UserMenu />
+
                 </IconsContainer>
 
             </Header>
@@ -129,4 +128,6 @@ cursor:pointer;
 opacity: 0.8;
 }
 `;
-const IconsContainer = styled.div``;
+const IconsContainer = styled.div`
+display: flex;
+`;
