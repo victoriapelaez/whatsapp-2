@@ -7,6 +7,7 @@ import AttachFileIcon from "@mui/icons-material/AttachFile";
 import { IconButton } from "@material-ui/core";
 import FormUploadImage from '../FormsCreateChats/FormUploadImage';
 import PostAddIcon from '@mui/icons-material/PostAdd';
+import CloseIcon from '@mui/icons-material/Close';
 
 function FadeMenu() {
     const [anchorEl, setAnchorEl] = React.useState(null);
@@ -41,8 +42,13 @@ function FadeMenu() {
                 style={{textAlign:'center'}}
             >
                 <FormUploadImage />
+                <div>
                 <IconButton>
-                    <PostAddIcon onClick={handleClose} ></PostAddIcon>
+                    <PostAddIcon />
+                </IconButton>
+                </div>
+                <IconButton>
+                    <CloseIcon onClick={handleClose} style={{width:"10px", height:"10px"}}/>
                 </IconButton>
             </Menu>
         </div>
