@@ -5,6 +5,8 @@ import MenuItem from '@mui/material/MenuItem';
 import Fade from '@mui/material/Fade';
 import AttachFileIcon from "@mui/icons-material/AttachFile";
 import { IconButton } from "@material-ui/core";
+import FormUploadImage from '../FormsCreateChats/FormUploadImage';
+import PostAddIcon from '@mui/icons-material/PostAdd';
 
 function FadeMenu() {
     const [anchorEl, setAnchorEl] = React.useState(null);
@@ -36,9 +38,12 @@ function FadeMenu() {
                 open={open}
                 onClose={handleClose}
                 TransitionComponent={Fade}
+                style={{textAlign:'center'}}
             >
-                <MenuItem onClick={handleClose}>Send Image</MenuItem>
-                <MenuItem onClick={handleClose}>Send Document</MenuItem>
+                <FormUploadImage />
+                <IconButton>
+                    <PostAddIcon onClick={handleClose} ></PostAddIcon>
+                </IconButton>
             </Menu>
         </div>
     );

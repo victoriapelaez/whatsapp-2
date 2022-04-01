@@ -16,6 +16,7 @@ import dynamic from "next/dynamic";
 const Picker = dynamic(() => import('emoji-picker-react'), { ssr: false });
 import CameraIcon from '@mui/icons-material/CameraAltOutlined';
 import FadeMenu from "../components/Menu/Menu";
+import FormUploadImage from "../components/FormsCreateChats/FormUploadImage"
 
 
 function ChatScreen({ chat, messages }) {
