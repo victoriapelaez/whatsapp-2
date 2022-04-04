@@ -6,7 +6,7 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import { Container, IconButton } from '@mui/material';
-import { getDownloadURL, getStorage, ref, uploadBytesResumable } from 'firebase/storage';
+import { getBlob, getDownloadURL, getStorage, ref, uploadBytesResumable } from 'firebase/storage';
 import { auth, db } from '../../firebase'
 import firebase from "firebase/compat/app";
 import { useRouter } from "next/router";
@@ -28,25 +28,37 @@ export default function FormUploadImage() {
         setOpen(false);
     };
 
-     const handleChange = (e) => {
+    const handleChange = (e) => {
         if (e.target.files[0]) {
             setImage(e.target.files[0])
         }
     }
 
     const sendImage = (ImageUrl) => {
-        
+
         db.collection('users').doc(user.uid).set({
             lastSeen: firebase.firestore.FieldValue.serverTimestamp()
         }), { merge: true }
 
-        db.collection('chats').doc(router.query.id).collection('images').add({
+        db.collection('chats').doc(router.query.id).collection('messages').add({
             timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-            image: ImageUrl,
-            user: user.email,         
+            message: ImageUrl,
+            user: user.email,
         })
     }
 
+    const getBase64FromUrl = async (url) => {
+        const data = await fetch(url);
+        const blob = await data.blob();
+        return new Promise((resolve) => {
+            const reader = new FileReader();
+            reader.readAsDataURL(blob);
+            reader.onloadend = () => {
+                const base64data = reader.result;
+                resolve(base64data);
+            }
+        });
+    }
 
     const archivoHandler = async (e) => {
         const metadata = {
@@ -93,6 +105,10 @@ export default function FormUploadImage() {
                 getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
                     console.log('File available at', downloadURL);
                     sendImage(downloadURL)
+
+                    /* sendImage(getBlob(downloadURL, 2000)) */
+                    getBase64FromUrl(downloadURL).then(console.log)
+
                     alert('Imagen subida con éxito')
                 });
             })
