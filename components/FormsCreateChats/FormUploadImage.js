@@ -72,6 +72,7 @@ export default function FormUploadImage() {
         console.log(archivoPath)
         const uploadTask = uploadBytesResumable(archivoPath, archivo, metadata)
         console.log(uploadTask);
+        alert("La imagen se está subiendo. Espere mensaje de confirmación")
 
         uploadTask.on('state_changed',
             (snapshot) => {
@@ -79,7 +80,7 @@ export default function FormUploadImage() {
                     (snapshot.bytesTransferred / snapshot.totalBytes) * 100
                 )
                 setProgress(progress)
-
+                
                 console.log('Upload is ' + progress + '% done');
                 switch (snapshot.state) {
                     case 'paused':
