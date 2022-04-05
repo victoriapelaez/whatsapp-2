@@ -11,6 +11,7 @@ import { auth, db } from '../../firebase'
 import firebase from "firebase/compat/app";
 import { useRouter } from "next/router";
 import { useAuthState } from 'react-firebase-hooks/auth';
+import Progress from "../Progress"
 
 export default function FormUploadImage() {
     const [user] = useAuthState(auth);
@@ -130,7 +131,7 @@ export default function FormUploadImage() {
                         Choose an image to upload
                     </DialogContentText>
                     <form>
-                        <progress value={progress} max="100" />
+                        <Progress />
                         <br></br>
                         <input type="text" placeholder="Enter a caption..." hidden onChange={e => setCaption(e.target.value)} value={caption} />
                         <input type="file" onChange={archivoHandler} />
