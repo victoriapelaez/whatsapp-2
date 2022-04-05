@@ -1,13 +1,11 @@
-import { Avatar } from "@material-ui/core";
 import styled from "styled-components"
 import SearchIcon from '@mui/icons-material/Search';
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useCollection } from "react-firebase-hooks/firestore"
 import { auth, db } from "../firebase";
 import Chat from "../components/Chat";
-import UserMenu from '../components/Menu/UserMenu'
 import FormChat from '../components/FormsCreateChats/FormChat'
-import FormChatGroup from '../components/FormsCreateChats/FormChatGroup'
+import HeaderBox from "./HeaderBox";
 
 function Sidebar() {
     const [user] = useAuthState(auth);
@@ -16,25 +14,16 @@ function Sidebar() {
 
     return (
         <Container>
-            <Header>
-                <UserAvatar src={user.photoURL} onClick={() => auth.signOut()} />
-                <IconsContainer>
-                    <FormChatGroup />
-                    <UserMenu />
-                </IconsContainer>
-            </Header>
+            <HeaderBox />
             <Search>
                 <SearchIcon />
                 <SearchInput placeholder="Search in chats" />
             </Search>
-
             <FormChat></FormChat>
-
             {/* List of Chats */}
             {chatsSnapshot?.docs.map((chat) => (
                 <Chat key={chat.id} id={chat.id} users={chat.data().users} />
             ))}
-
         </Container>
     );
 }
@@ -70,28 +59,4 @@ border: none;
 border-radius: 10px;
 flex: 1;
 background-color: white;
-`;
-
-const Header = styled.div`
-display: flex;
-position: sticky;
-top: 0;
-z-index: 1;
-justify-content: space-between;
-align-items: center;
-padding: 15px;
-height: 80px;
-background-color: white;
-
-`;
-
-const UserAvatar = styled(Avatar)`
-cursor:pointer;
-
-:hover{
-opacity: 0.8;
-}
-`;
-const IconsContainer = styled.div`
-display: flex;
 `;
