@@ -9,10 +9,10 @@ import firebase from 'firebase/compat/app';
 
 function MyApp({ Component, pageProps }) {
   const [user, loading] = useAuthState(auth);
-
+ 
   useEffect(() => {
     if (user) {
-      db.collection('users').doc(user.id).set(
+      db.collection('users').doc(user.uid).set(
         {
           name:user.displayName,
           email: user.email,
@@ -21,7 +21,8 @@ function MyApp({ Component, pageProps }) {
         },
         { merge: true }
         );
-    }
+      }
+      
   }, [user]);
   if (loading) return <Loading />
   if (!user) return <Login />
