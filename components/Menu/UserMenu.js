@@ -12,9 +12,10 @@ import Settings from '@mui/icons-material/Settings';
 import Logout from '@mui/icons-material/Logout';
 import { auth } from "../../firebase";
 import MoreVertIcon from '@mui/icons-material/MoreVert';
-
+import { useRouter } from "next/router";
 
 export default function AccountMenu() {
+    const router = useRouter();
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
     const handleClick = (event) => {
@@ -23,6 +24,14 @@ export default function AccountMenu() {
     const handleClose = () => {
         setAnchorEl(null);
     };
+
+   const goToChats = ()=>{
+        router.push('/')
+    }
+
+    const goToProfile = ()=>{
+        router.push('/profile')
+    }
 
     return (
         <React.Fragment>
@@ -75,11 +84,11 @@ export default function AccountMenu() {
                 transformOrigin={{ horizontal: 'right', vertical: 'top' }}
                 anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
             >
-                <MenuItem>
+                <MenuItem onClick={goToProfile}>
                     <Avatar /> Profile
                 </MenuItem>
-                <MenuItem>
-                    <Avatar /> My account
+                <MenuItem onClick={goToChats}>
+                    <Avatar/> My Chats
                 </MenuItem>
                 <Divider />
                 <MenuItem>
