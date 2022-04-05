@@ -42,14 +42,15 @@ width: 100vw;
 height: 100vh;
 background-color: white;
 margin: 0;
-
 `;
+
 const ProfileContainer = styled.div`
 display: flex;
 width: 100vw;
 height: 100vh;
 background-color: teal;
 padding: 20px;
+border-top: 30px solid #DBF4EA;
 `;
 
 const UserAvatar = styled(Avatar)`
@@ -61,7 +62,6 @@ opacity: 0.8;
 const UserAvatarBig = styled(Avatar)`
 margin-top: 150px;
 margin-left: 150px;
-
 `;
 
 const IconsContainer = styled.div`
@@ -73,7 +73,7 @@ const DataUserContainer = styled.div`
 color: white;
 width: 50%;
 margin-left: 120px;
-margin-top: 120px;
+margin-top: 100px;
 font-size: 20px;
 padding: 50px;
 `;
@@ -90,5 +90,4 @@ font-size: 30px;
 font-weight: 600;
 line-height: 1.24;
 z-index: 10;
-
 `
