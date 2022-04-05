@@ -3,6 +3,7 @@ import { Avatar } from "@material-ui/core";
 import { auth } from "../firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 import UserMenu from '../components/Menu/UserMenu'
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
 
 
 function Profile() {
@@ -14,19 +15,22 @@ function Profile() {
                 <UserAvatar src={user.photoURL} onClick={() => auth.signOut()} />
                 <UserMenu />
             </IconsContainer>
-            <Title>USER PROFILE</Title>
-            <ProfileContainer>
-                <DataUserContainer>
-                <h3>Nombre y apellido del usuario: </h3>
-                <p>{user.displayName}</p>
-                <h3> Email del usuario: </h3>
-                <p>{user.email}</p>
-                </DataUserContainer>
-                <PhotoUserContainer>
-                <UserAvatarBig src={user.photoURL} style={{width:'300px', height:'300px'}} />
-                </PhotoUserContainer>
-            </ProfileContainer>
-
+            <ReactCSSTransitionGroup transitionName="anim" transitionAppear={true} transitionAppearTimeout={5000} transitionEnter={false} transitionLeave={false}>
+                <Title>USER PROFILE</Title>
+            </ReactCSSTransitionGroup>
+            <ReactCSSTransitionGroup transitionName="anim" transitionAppear={true} transitionAppearTimeout={5000} transitionEnter={false} transitionLeave={false}>
+                <ProfileContainer>
+                    <DataUserContainer>
+                        <h3>Nombre y apellido del usuario: </h3>
+                        <p>{user.displayName}</p>
+                        <h3> Email del usuario: </h3>
+                        <p>{user.email}</p>
+                    </DataUserContainer>
+                    <PhotoUserContainer>
+                        <UserAvatarBig src={user.photoURL} style={{ width: '300px', height: '300px' }} />
+                    </PhotoUserContainer>
+                </ProfileContainer>
+            </ReactCSSTransitionGroup>
         </Container>
 
     )
@@ -49,7 +53,6 @@ display: flex;
 width: 100vw;
 height: 100vh;
 background-color: teal;
-padding: 20px;
 border-top: 30px solid #DBF4EA;
 `;
 
