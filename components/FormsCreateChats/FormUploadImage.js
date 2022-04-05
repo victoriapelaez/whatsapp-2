@@ -42,7 +42,10 @@ export default function FormUploadImage() {
 
         db.collection('chats').doc(router.query.id).collection('messages').add({
             timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-            message: ImageUrl,
+            message: {
+                messageText: ImageUrl,
+                type: 'file',
+            },
             user: user.email,
         })
     }
@@ -80,7 +83,7 @@ export default function FormUploadImage() {
                     (snapshot.bytesTransferred / snapshot.totalBytes) * 100
                 )
                 setProgress(progress)
-                
+
                 console.log('Upload is ' + progress + '% done');
                 switch (snapshot.state) {
                     case 'paused':

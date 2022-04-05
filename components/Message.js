@@ -11,14 +11,18 @@ function Message({ user, message }) {
     return (
         <Container>
             <TypeOfMessage>
-                {message.message}
-            <Timestamp>
-            {message.timestamp ? moment(message.timestamp).format('LT') : '...'}
-            </Timestamp>
+                {message.message.type === "file" ? (
+                    <img src={message.message.messageText} style={{ maxWidth: '200px' }} />
+                ) : (
+                    message.message.messageText
+                )}
+                <Timestamp>
+                    {message.timestamp ? moment(message.timestamp).format('LT') : '...'}
+                </Timestamp>
             </TypeOfMessage>
         </Container >
     )
-} 
+}
 
 export default Message
 
@@ -36,6 +40,7 @@ padding-bottom: 26px;
 position: relative;
 text-align: right;
 `;
+
 
 const Sender = styled(MessageElement)`
 margin-left: auto;

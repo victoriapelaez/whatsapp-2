@@ -80,7 +80,10 @@ function ChatScreen({ chat, messages }) {
 
         db.collection('chats').doc(router.query.id).collection('messages').add({
             timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-            message: input,
+            message: {
+                messageText: input,
+                type: 'text',
+            },
             user: user.email,
             photoUrl: user.photoURL,
         })
