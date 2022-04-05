@@ -12,7 +12,7 @@ function Message({ user, message }) {
         <Container>
             <TypeOfMessage>
                 {message.message.type === "file" ? (
-                    <img src={message.message.messageText} style={{ maxWidth: '200px' }} />
+                    <img src={message.message.messageText} style={{ maxWidth: '300px' }} />
                 ) : (
                     message.message.messageText
                 )}
@@ -32,7 +32,7 @@ const Container = styled.div`
 
 const MessageElement = styled.p`
 width: fit-content;
-padding: 15px;
+padding: 10px;
 border-radius: 8px;
 margin: 10px;
 min-width: 60px;
