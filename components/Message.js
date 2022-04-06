@@ -24,7 +24,7 @@ function Message({ user, message, endOfMessagesRef }) {
         <Container>
             <TypeOfMessage>
                 {message.message.type === "file" ? (
-                    <img src={message.message.messageText} style={{ maxWidth: '200px' }} /> 
+                    <img src={message.message.messageText} style={{ maxWidth: '300px', maxHeight:'300px' }} /> 
                 ) : (
                     message.message.messageText
                 )}
