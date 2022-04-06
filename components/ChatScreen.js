@@ -14,8 +14,8 @@ import getRecipientEmail from "../utils/getRecipientEmail";
 import TimeAgo from "timeago-react";
 import dynamic from "next/dynamic";
 const Picker = dynamic(() => import('emoji-picker-react'), { ssr: false });
-import CameraIcon from '@mui/icons-material/CameraAltOutlined';
 import FadeMenu from "../components/Menu/Menu";
+import AttachFileIcon from "@mui/icons-material/AttachFile";
 
 
 
@@ -126,7 +126,9 @@ function ChatScreen({ chat, messages }) {
                     )}
                 </HeaderInformation>
                 <HeaderIcons>
-                    <FadeMenu />
+                    <IconButton>
+                        <AttachFileIcon />
+                    </IconButton>
                     <IconButton>
                         <MoreVertIcon />
                     </IconButton>
@@ -142,11 +144,7 @@ function ChatScreen({ chat, messages }) {
                 </IconButton>
                 <Input value={input} onChange={e => setInput(e.target.value)} />
                 <button hidden disabled={!input} type="submit" onClick={sendMessage}>Send Message</button>
-                <IconButton>
-                    <CameraIcon>
-
-                    </CameraIcon>
-                </IconButton>
+                <FadeMenu />
                 <IconButton>
                     <MicIcon />
                 </IconButton>

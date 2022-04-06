@@ -1,4 +1,3 @@
-import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
 import * as React from 'react';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
@@ -122,8 +121,8 @@ export default function FormUploadImage() {
 
     return (
         <Container>
-            <IconButton onClick={handleClickOpen}>
-                <AddPhotoAlternateIcon />
+            <IconButton onClick={handleClickOpen} style={{ fontSize: '15px' }}>
+                Desde Galería
             </IconButton>
             <Dialog open={open} onClose={handleClose}>
                 <DialogContent>

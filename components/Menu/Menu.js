@@ -1,13 +1,11 @@
-import * as React from 'react';
-import { auth, db } from "../../firebase";
+import * as React from 'react'; 
 import Menu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
 import Fade from '@mui/material/Fade';
-import AttachFileIcon from "@mui/icons-material/AttachFile";
 import { IconButton } from "@material-ui/core";
 import FormUploadImage from '../FormsCreateChats/FormUploadImage';
-import PostAddIcon from '@mui/icons-material/PostAdd';
 import CloseIcon from '@mui/icons-material/Close';
+import CameraIcon from '@mui/icons-material/CameraAltOutlined';
+import styled from "styled-components"
 
 function FadeMenu() {
     const [anchorEl, setAnchorEl] = React.useState(null);
@@ -20,7 +18,7 @@ function FadeMenu() {
     };
 
     return (
-        <div>
+        <MenuContainer >
             <IconButton
                 id="fade-button"
                 aria-controls={open ? 'fade-menu' : undefined}
@@ -28,7 +26,7 @@ function FadeMenu() {
                 aria-expanded={open ? 'true' : undefined}
                 onClick={handleClick}
             >
-                <AttachFileIcon />
+                <CameraIcon />
             </IconButton>
             <Menu
                 id="fade-menu"
@@ -43,18 +41,19 @@ function FadeMenu() {
             >
                 <FormUploadImage />
                 <div>
-                <IconButton>
-                    <PostAddIcon />
+                <IconButton style={{fontSize:'15px'}}>
+                    Desde cámara
                 </IconButton>
                 </div>
                 <IconButton>
                     <CloseIcon onClick={handleClose} style={{width:"10px", height:"10px"}}/>
                 </IconButton>
             </Menu>
-        </div>
+        </MenuContainer>
     );
 }
 
-
-
 export default FadeMenu;
+const MenuContainer = styled.div`
+width: 100px;
+`
