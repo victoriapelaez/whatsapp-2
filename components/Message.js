@@ -12,7 +12,7 @@ function Message({ user, message }) {
         <Container>
             <TypeOfMessage>
                 {message.message.type === "file" ? (
-                    <img src={message.message.messageText} style={{ maxWidth: '300px' }} />
+                    <img src={message.message.messageText} style={{ maxWidth: '200px' }} />
                 ) : (
                     message.message.messageText
                 )}

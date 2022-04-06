@@ -50,6 +50,7 @@ function ChatScreen({ chat, messages }) {
                         ...message.data(),
                         timestamp: message.data().timestamp?.toDate().getTime(),
                     }}
+                    onload={scrollToBottom()}
                 />
             ));
         } else {
@@ -58,6 +59,7 @@ function ChatScreen({ chat, messages }) {
                     key={message.id}
                     user={message.user}
                     message={message}
+                    
                 />
             ))
         }
@@ -159,7 +161,6 @@ function ChatScreen({ chat, messages }) {
 export default ChatScreen
 
 const Container = styled.div`
-
 `;
 
 const Header = styled.div`
@@ -176,21 +177,17 @@ align-items: center;
 const HeaderInformation = styled.div`
 margin-left: 15px;
 flex: 1;
-
 > h3 {
     margin-bottom: 3px;
     color: #234839 ;
 }
-
 > p {
     font-size: 14px;
     color: #234839 ;
 }
-
 `;
 const HeaderIcons = styled.div`
 display: flex;
-
 `;
 
 const MessageContainer = styled.div`
