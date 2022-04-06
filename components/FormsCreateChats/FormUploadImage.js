@@ -68,14 +68,9 @@ export default function FormUploadImage() {
             contentType: 'image/jpeg'
         };
         const archivo = e.target.files[0];
-        console.log(archivo)
-        const storageRef = getStorage();
-        console.log(storageRef)
+                const storageRef = getStorage();
         const archivoPath = ref(storageRef, 'images/' + archivo.name)
-        console.log(archivoPath)
         const uploadTask = uploadBytesResumable(archivoPath, archivo, metadata)
-        console.log(uploadTask);
-        alert("La imagen se está subiendo. Espere mensaje de confirmación")
 
         uploadTask.on('state_changed',
             (snapshot) => {
@@ -83,7 +78,6 @@ export default function FormUploadImage() {
                     (snapshot.bytesTransferred / snapshot.totalBytes) * 100
                 )
                 setProgress(progress)
-
                 console.log('Upload is ' + progress + '% done');
                 switch (snapshot.state) {
                     case 'paused':
@@ -109,11 +103,6 @@ export default function FormUploadImage() {
                 getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
                     console.log('File available at', downloadURL);
                     sendImage(downloadURL)
-
-                    /* sendImage(getBlob(downloadURL, 2000)) */
-                    getBase64FromUrl(downloadURL).then(console.log)
-
-                    alert('Imagen subida con éxito')
                 });
             })
         handleClose()

@@ -1,4 +1,4 @@
-import * as React from 'react'; 
+import * as React from 'react';
 import Menu from '@mui/material/Menu';
 import Fade from '@mui/material/Fade';
 import { IconButton } from "@material-ui/core";
@@ -37,16 +37,16 @@ function FadeMenu() {
                 open={open}
                 onClose={handleClose}
                 TransitionComponent={Fade}
-                style={{textAlign:'center'}}
+                style={{ textAlign: 'center' }}
             >
-                <FormUploadImage />
+                <FormUploadImage/>
                 <div>
-                <IconButton style={{fontSize:'15px'}}>
-                    Desde cámara
-                </IconButton>
+                    <IconButton style={{ fontSize: '15px' }}>
+                        Desde cámara
+                    </IconButton>
                 </div>
                 <IconButton>
-                    <CloseIcon onClick={handleClose} style={{width:"10px", height:"10px"}}/>
+                    <CloseIcon onClick={handleClose} style={{ width: "10px", height: "10px" }} />
                 </IconButton>
             </Menu>
         </MenuContainer>

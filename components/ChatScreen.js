@@ -8,7 +8,7 @@ import { useCollection } from "react-firebase-hooks/firestore";
 import Message from "./Message";
 import InsertEmoticonIcon from "@mui/icons-material/InsertEmoticon";
 import MicIcon from "@mui/icons-material/Mic";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import firebase from "firebase/compat/app";
 import getRecipientEmail from "../utils/getRecipientEmail";
 import TimeAgo from "timeago-react";
@@ -50,7 +50,7 @@ function ChatScreen({ chat, messages }) {
                         ...message.data(),
                         timestamp: message.data().timestamp?.toDate().getTime(),
                     }}
-                    onload={scrollToBottom()}
+                    endOfMessagesRef
                 />
             ));
         } else {
@@ -59,11 +59,15 @@ function ChatScreen({ chat, messages }) {
                     key={message.id}
                     user={message.user}
                     message={message}
-                    
+                    endOfMessagesRef
                 />
             ))
         }
     }
+
+    useEffect(() => {
+        scrollToBottom();
+    });
 
     const scrollToBottom = () => {
         endOfMessagesRef.current.scrollIntoView({
@@ -91,7 +95,6 @@ function ChatScreen({ chat, messages }) {
         })
 
         setInput("");
-        scrollToBottom();
     }
 
     const onEmojiClick = (event, emojiObject) => {
