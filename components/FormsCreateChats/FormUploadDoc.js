@@ -25,7 +25,7 @@ export default function FormUploadDoc() {
         setOpen(false);
     };
 
-    const sendDoc = (docUrl) => {
+    const sendDoc = (docUrl, name) => {
         db.collection('users').doc(user.uid).set({
             lastSeen: firebase.firestore.FieldValue.serverTimestamp()
         }), { merge: true }
@@ -35,6 +35,7 @@ export default function FormUploadDoc() {
             message: {
                 messageText: docUrl,
                 type: 'pdf',
+                name:name
             },
             user: user.email,
         })
@@ -77,10 +78,10 @@ export default function FormUploadDoc() {
             },
             () => {
                 getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-                    sendDoc(downloadURL)
+                    sendDoc(downloadURL, archivo.name)
+                    handleClose()
                 });
             })
-        handleClose()
     };
 
     return (
@@ -91,7 +92,7 @@ export default function FormUploadDoc() {
             <Dialog open={open} onClose={handleClose}>
                 <DialogContent>
                     <DialogContentText style={{ color: 'teal' }}>
-                        Choose a document to upload
+                        Choose a PDF to upload
                     </DialogContentText>
                     <form>
                         <br></br>
