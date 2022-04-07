@@ -15,7 +15,7 @@ import TimeAgo from "timeago-react";
 import dynamic from "next/dynamic";
 const Picker = dynamic(() => import('emoji-picker-react'), { ssr: false });
 import FadeMenu from "../components/Menu/Menu";
-import AttachFileIcon from "@mui/icons-material/AttachFile";
+import FormUploadDoc from "./FormsCreateChats/FormUploadDoc";
 
 
 
@@ -131,9 +131,7 @@ function ChatScreen({ chat, messages }) {
                     )}
                 </HeaderInformation>
                 <HeaderIcons>
-                    <IconButton>
-                        <AttachFileIcon />
-                    </IconButton>
+                    <FormUploadDoc />
                     <IconButton>
                         <MoreVertIcon />
                     </IconButton>
@@ -155,7 +153,6 @@ function ChatScreen({ chat, messages }) {
                 </IconButton>
             </InputContainer>
             {showPicker && <Picker onEmojiClick={onEmojiClick} pickerStyle={{ width: '100%' }} />}
-
         </Container>
     )
 

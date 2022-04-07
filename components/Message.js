@@ -3,6 +3,8 @@ import styled from "styled-components"
 import { auth } from "../firebase";
 import moment from "moment";
 import { useEffect} from "react";
+import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf';
+import { IconButton } from "@mui/material";
 
 function Message({ user, message, endOfMessagesRef }) {
     const [userLoggedIn] = useAuthState(auth);
@@ -24,8 +26,11 @@ function Message({ user, message, endOfMessagesRef }) {
         <Container>
             <TypeOfMessage>
                 {message.message.type === "file" ? (
-                    <img src={message.message.messageText} style={{ maxWidth: '300px', maxHeight:'300px' }} /> 
-                ) : (
+                    <img src={message.message.messageText} style={{ maxWidth: '300px', maxHeight:'300px' }}/> 
+                ): message.message.type ==="pdf" ? (
+                    <a href={message.message.messageText} rel='noreferrer' target='_blank'><IconButton ><PictureAsPdfIcon /><p style={{fontSize:'15px'}}>open PDF</p></IconButton></a>
+                )
+                : (
                     message.message.messageText
                 )}
                 <Timestamp>
