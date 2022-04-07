@@ -16,6 +16,7 @@ import dynamic from "next/dynamic";
 const Picker = dynamic(() => import('emoji-picker-react'), { ssr: false });
 import FadeMenu from "../components/Menu/Menu";
 import FormUploadDoc from "./FormsCreateChats/FormUploadDoc";
+import FormUploadImage from "./FormsCreateChats/FormUploadImage";
 
 
 
@@ -131,12 +132,6 @@ function ChatScreen({ chat, messages }) {
                         <p>Loanding last active...</p>
                     )}
                 </HeaderInformation>
-                <HeaderIcons>
-                    <FormUploadDoc />
-                    <IconButton>
-                        <MoreVertIcon />
-                    </IconButton>
-                </HeaderIcons>
             </Header>
             <MessageContainer>
                 {showMessages()}
@@ -148,10 +143,10 @@ function ChatScreen({ chat, messages }) {
                 </IconButton>
                 <Input value={input} onChange={e => setInput(e.target.value)} />
                 <button hidden disabled={!input} type="submit" onClick={sendMessage}>Send Message</button>
-                <FadeMenu />
-                <IconButton>
-                    <MicIcon />
-                </IconButton>
+                <HeaderIcons>
+                    <FormUploadImage />
+                    <FormUploadDoc />
+                </HeaderIcons>
             </InputContainer>
             {showPicker && <Picker onEmojiClick={onEmojiClick} pickerStyle={{ width: '100%' }} />}
         </Container>

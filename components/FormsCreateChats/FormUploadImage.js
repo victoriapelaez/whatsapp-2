@@ -9,6 +9,7 @@ import firebase from "firebase/compat/app";
 import { useRouter } from "next/router";
 import { useAuthState } from 'react-firebase-hooks/auth';
 import CloseIcon from '@mui/icons-material/Close';
+import CameraIcon from '@mui/icons-material/CameraAltOutlined';
 
 export default function FormUploadImage() {
     const [user] = useAuthState(auth);
@@ -89,8 +90,8 @@ export default function FormUploadImage() {
 
     return (
         <Container>
-            <IconButton onClick={handleClickOpen} style={{ fontSize: '15px' }}>
-                Desde Galería
+            <IconButton>
+                <CameraIcon onClick={handleClickOpen} />
             </IconButton>
             <Dialog open={open} onClose={handleClose}>
                 <DialogContent>
