@@ -1,5 +1,4 @@
 import * as React from 'react';
-import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
@@ -9,11 +8,13 @@ import { auth, db } from '../../firebase'
 import firebase from "firebase/compat/app";
 import { useRouter } from "next/router";
 import { useAuthState } from 'react-firebase-hooks/auth';
+import CloseIcon from '@mui/icons-material/Close';
 
 export default function FormUploadImage() {
     const [user] = useAuthState(auth);
     const [open, setOpen] = React.useState(false);
     const [caption, setCaption] = React.useState('')
+    const [progress, setProgress] = React.useState(0)
     const router = useRouter();
 
     const handleClickOpen = () => {
@@ -50,6 +51,10 @@ export default function FormUploadImage() {
 
         uploadTask.on('state_changed',
             (snapshot) => {
+                setProgress(Math.round(
+                    (snapshot.bytesTransferred / snapshot.totalBytes) * 100,
+                ))
+
                 const progress = Math.round(
                     (snapshot.bytesTransferred / snapshot.totalBytes) * 100
                 )
@@ -77,9 +82,9 @@ export default function FormUploadImage() {
             () => {
                 getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
                     sendImage(downloadURL)
+                    handleClose()
                 });
             })
-        handleClose()
     };
 
     return (
@@ -89,17 +94,19 @@ export default function FormUploadImage() {
             </IconButton>
             <Dialog open={open} onClose={handleClose}>
                 <DialogContent>
-                    <DialogContentText style={{ color: 'teal' }}>
-                        Choose an image to upload
+                    <IconButton onClick={handleClose} style={{  marginLeft:'350px' }}>
+                        <CloseIcon style={{width: "15px", height: "15px"}} />
+                    </IconButton>
+                    <DialogContentText style={{ color: 'teal', textAlign: 'center', fontWeight: 'bold' }}>
+                        CHOOSE AN IMAGE TO SEND
                     </DialogContentText>
-                    <form>
-                        <br></br>
+                    <form style={{margin:'20px'}}>
+                        <br />
+                        <progress value={progress} onChange={e => setProgress(e.target.value)} max='100' style={{ width: '300px'}}></progress> {progress + '%'}
+                        <br />
                         <input type="text" placeholder="Enter a caption..." hidden onChange={e => setCaption(e.target.value)} value={caption} />
                         <input type="file" onChange={archivoHandler} />
-                        <br></br>
-                        <Button onClick={handleClose} style={{ color: 'teal', borderColor: 'teal', marginTop:'10px' }} variant="outlined">Cancel</Button>
-                        {/*  <Button onSubmit={archivoHandler} style={{ color: 'white', backgroundColor: 'teal' }} type="submit" variant="contained">Upload</Button> */}
-
+                        <br />
                     </form>
                 </DialogContent>
             </Dialog>

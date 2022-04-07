@@ -10,11 +10,13 @@ import firebase from "firebase/compat/app";
 import { useRouter } from "next/router";
 import { useAuthState } from 'react-firebase-hooks/auth';
 import AttachFileIcon from "@mui/icons-material/AttachFile";
+import CloseIcon from '@mui/icons-material/Close';
 
 export default function FormUploadDoc() {
     const [user] = useAuthState(auth);
     const [open, setOpen] = React.useState(false);
     const [caption, setCaption] = React.useState('')
+    const [progress, setProgress] = React.useState(0)
     const router = useRouter();
 
     const handleClickOpen = () => {
@@ -35,7 +37,7 @@ export default function FormUploadDoc() {
             message: {
                 messageText: docUrl,
                 type: 'pdf',
-                name:name
+                name: name
             },
             user: user.email,
         })
@@ -52,6 +54,10 @@ export default function FormUploadDoc() {
 
         uploadTask.on('state_changed',
             (snapshot) => {
+                setProgress(Math.round(
+                    (snapshot.bytesTransferred / snapshot.totalBytes) * 100,
+                ))
+
                 const progress = Math.round(
                     (snapshot.bytesTransferred / snapshot.totalBytes) * 100
                 )
@@ -91,17 +97,19 @@ export default function FormUploadDoc() {
             </IconButton>
             <Dialog open={open} onClose={handleClose}>
                 <DialogContent>
-                    <DialogContentText style={{ color: 'teal' }}>
-                        Choose a PDF to upload
+                <IconButton onClick={handleClose} style={{  marginLeft:'350px' }}>
+                        <CloseIcon style={{width: "15px", height: "15px"}} />
+                    </IconButton>
+                    <DialogContentText style={{ color: 'teal', textAlign: 'center', fontWeight: 'bold' }}>
+                        CHOOSE A PDF TO SEND
                     </DialogContentText>
-                    <form>
-                        <br></br>
+                    <form style={{margin:'20px'}}>
+                        <br />
+                        <progress value={progress} onChange={e => setProgress(e.target.value)} max='100' style={{ width: '300px' }}></progress> {progress + '%'}
+                        <br />
                         <input type="text" placeholder="Enter a caption..." hidden onChange={e => setCaption(e.target.value)} value={caption} />
                         <input type="file" onChange={docHandler} />
-                        <br></br>
-                        <Button onClick={handleClose} style={{ color: 'teal', borderColor: 'teal', marginTop: '10px' }} variant="outlined">Cancel</Button>
-                        {/*  <Button onSubmit={archivoHandler} style={{ color: 'white', backgroundColor: 'teal' }} type="submit" variant="contained">Upload</Button> */}
-
+                        <br />
                     </form>
                 </DialogContent>
             </Dialog>

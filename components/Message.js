@@ -2,9 +2,11 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import styled from "styled-components"
 import { auth } from "../firebase";
 import moment from "moment";
-import { useEffect} from "react";
+import { useEffect } from "react";
 import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf';
 import { IconButton } from "@mui/material";
+import { Circle } from "better-react-spinkit"
+import { ArchiveOutlined } from "@mui/icons-material";
 
 function Message({ user, message, endOfMessagesRef }) {
     const [userLoggedIn] = useAuthState(auth);
@@ -22,22 +24,32 @@ function Message({ user, message, endOfMessagesRef }) {
         })
     }
 
+
     return (
         <Container>
             <TypeOfMessage>
-                {message.message.type === "file" ? (
-                    <img src={message.message.messageText} style={{ maxWidth: '300px', maxHeight:'300px' }}/> 
-                ): message.message.type ==="pdf" ? (
-                    <a href={message.message.messageText} rel='noreferrer' target='_blank'><IconButton ><PictureAsPdfIcon /><p style={{fontSize:'15px'}}>open PDF</p></IconButton></a>
-                )
-                : (
-                    message.message.messageText
-                )}
+                {message.message.type === "file"
+                    ?
+                    ((message.timestamp != undefined)
+                        ? <img src={message.message.messageText} style={{ maxWidth: '300px', maxHeight: '300px' }} />
+                        : <Circle />)
+                    : message.message.type === "pdf"
+                        ?
+                        (<a href={message.message.messageText} rel='noreferrer' target='_blank' style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+
+                            <PictureAsPdfIcon style={{ fontSize: '55px', color: 'red' }} />
+                            <p style={{ fontSize: '13px' }}>OPEN {message.message.name}</p>
+
+                        </a>
+                        )
+                        : (
+                            message.message.messageText
+                        )}
                 <Timestamp>
                     {message.timestamp ? moment(message.timestamp).format('LT') : '...'}
                 </Timestamp>
             </TypeOfMessage>
-        </Container >
+        </Container>
     )
 }
 

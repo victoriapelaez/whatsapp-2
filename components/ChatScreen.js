@@ -52,6 +52,7 @@ function ChatScreen({ chat, messages }) {
                     }}
                     endOfMessagesRef
                 />
+
             ));
         } else {
             return JSON.parse(messages).map(message => (
@@ -201,7 +202,7 @@ min-height: 90vh;
 `;
 
 const EndOfMessage = styled.div`
-margin-bottom: 50px;
+margin-bottom: 100px;
 `;
 
 const InputContainer = styled.form`
