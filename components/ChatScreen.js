@@ -3,21 +3,17 @@ import { auth, db } from "../firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useRouter } from "next/router";
 import { Avatar, IconButton } from "@material-ui/core";
-import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { useCollection } from "react-firebase-hooks/firestore";
 import Message from "./Message";
 import InsertEmoticonIcon from "@mui/icons-material/InsertEmoticon";
-import MicIcon from "@mui/icons-material/Mic";
 import { useEffect, useRef, useState } from "react";
 import firebase from "firebase/compat/app";
 import getRecipientEmail from "../utils/getRecipientEmail";
 import TimeAgo from "timeago-react";
 import dynamic from "next/dynamic";
 const Picker = dynamic(() => import('emoji-picker-react'), { ssr: false });
-import FadeMenu from "../components/Menu/Menu";
 import FormUploadDoc from "./FormsCreateChats/FormUploadDoc";
 import FormUploadImage from "./FormsCreateChats/FormUploadImage";
-
 
 
 function ChatScreen({ chat, messages }) {
@@ -151,7 +147,6 @@ function ChatScreen({ chat, messages }) {
             {showPicker && <Picker onEmojiClick={onEmojiClick} pickerStyle={{ width: '100%' }} />}
         </Container>
     )
-
 }
 
 export default ChatScreen
