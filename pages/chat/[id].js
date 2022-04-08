@@ -6,9 +6,12 @@ import { async } from "@firebase/util";
 import { db, auth } from "../../firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 import getRecipientEmail from "../../utils/getRecipientEmail";
+import Loading from '../../components/Loading'
+import { useState } from "react";
 
 function Chat({ chat, messages }) {
     const [user] = useAuthState(auth);
+    const [loading, setLoading] = useState(false);
 
     return (
         <Container>
@@ -16,9 +19,13 @@ function Chat({ chat, messages }) {
                 <title>Chat with {getRecipientEmail(chat.users, user)}</title>
             </Head>
             <Sidebar />
-            <ChatContainer>
-                <ChatScreen chat={chat} messages={messages} />
-            </ChatContainer>
+
+            {!chat ? (<Loading />) :
+                (
+                    <ChatContainer>
+                        <ChatScreen chat={chat} messages={messages} />
+                    </ChatContainer>
+                )}
         </Container>
     )
 
