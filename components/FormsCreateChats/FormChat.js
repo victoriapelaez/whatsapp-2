@@ -30,13 +30,12 @@ export default function FormDialog() {
 
 
   const createChat = () => {
-    console.log("createChat", input);
-
     if (!input) return null;
     if (EmailValidator.validate(input) && !chatAlreadyExists(input) && input !== user.email) {
       //We add the chat into de DB 'chats' collection if it doesnt already exists and is valid
       db.collection('chats').add({
         users: [user.email, input],
+        type: "singleChat"
       })
     }
     handleClose();

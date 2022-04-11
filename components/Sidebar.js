@@ -22,7 +22,7 @@ function Sidebar() {
             <FormChat></FormChat>
             {/* List of Chats */}
             {chatsSnapshot?.docs.map((chat) => (
-                <Chat key={chat.id} id={chat.id} users={chat.data().users} />
+                <Chat key={chat.id} id={chat.id} users={chat.data().users} type={chat.data().type} nameGroup={chat.data().nameGroup} />
             ))}
         </Container>
     );

@@ -29,26 +29,21 @@ export default function FormDialog() {
   const [chatsSnapshot] = useCollection(userChatRef)
   const [input, setInput] = React.useState("")
   const [input2, setInput2] = React.useState("")
-
+  const [nameGroup, setNameGroup] = React.useState("")
 
   const createChatGroup = () => {
     console.log("createChat", input, input2);
 
     if (!input || !input2) return null;
-    if (EmailValidator.validate(input) && EmailValidator.validate(input2) && !chatAlreadyExists(input, input2) && input !== user.email && input2 !== user.email) {
-      //We add the chat into de DB 'chats' collection if it doesnt already exists and is valid
-      db.collection('chatsGroup').add({
+    if (EmailValidator.validate(input) && EmailValidator.validate(input2) ) {
+      db.collection('chats').add({
         users: [user.email, input, input2],
+        type: "groupChat",
+        nameGroup: nameGroup
       })
     }
     handleClose();
   };
-
-  const chatAlreadyExists = (recipientEmail) =>
-    !!chatsSnapshot?.docs.find(
-      (chat) =>
-        chat.data().users.find((user) => user === recipientEmail)?.length > 0
-    );
 
   return (
     <Container>
@@ -65,7 +60,6 @@ export default function FormDialog() {
           <TextField
             autoFocus
             margin="dense"
-            id="name"
             label="Email Address 1"
             type="email"
             fullWidth
@@ -76,13 +70,22 @@ export default function FormDialog() {
           <TextField
             autoFocus
             margin="dense"
-            id="name"
             label="Email Address 2"
             type="email"
             fullWidth
             variant="standard"
             value={input2}
             onChange={e => setInput2(e.target.value)}
+          />
+          <TextField
+            autoFocus
+            margin="dense"
+            label="Name Group"
+            type="text"
+            fullWidth
+            variant="standard"
+            value={nameGroup}
+            onChange={e => setNameGroup(e.target.value)}
           />
         </DialogContent>
         <DialogActions>
