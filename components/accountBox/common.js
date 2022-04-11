@@ -8,28 +8,28 @@ align-items: center;
 margin-top: 10px;
 `;
 
-export const FormContainer = styled.form`
+/* export const FormContainer = styled.form`
 width: 100%;
 display: flex;
 flex-direction: column;
-`;
+`; */
 
-export const MutedLink = styled.a`
+/* export const MutedLink = styled.a`
 font-size: 12px;
 color: rgba(200, 200, 200, 0.8);
 font-weight: 500;
 text-decoration: none;
-`;
+`; */
 
-export const BoldLink = styled.a`
+/* export const BoldLink = styled.a`
 font-size: 12px;
 color: rgb(108,190,26);
 font-weight: 500;
 text-decoration: none;
 margin: 0 4px;
-`;
+`; */
 
-export const Input = styled.input`
+/* export const Input = styled.input`
 height: 42px;
 width: 100%;
 border: 1px solid rgba(200, 200, 200, 0.3);
@@ -50,9 +50,9 @@ font-size: 12px;
     outline: none;
     border-bottom: 2px solid rgb(108,190,26);
 }
-`;
+`; */
 
-export const SubmitButton = styled.button`
+/* export const SubmitButton = styled.button`
 width: 100%;
 padding: 11px 40%;
 color: #fff;
@@ -68,4 +68,4 @@ background: (linear-gradient(58deg, rgba(108,190,26,1) 20%, rgba(2,135,15,1) 100
 &:hover{
     filter: brightness(1.03);
 }
-`
+` */

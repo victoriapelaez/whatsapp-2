@@ -15,7 +15,7 @@ export function LoginForm() {
 
     return (
         <BoxContainer>
-            <FormContainer>
+            {/* <FormContainer>
                 <Input type="email" placeholder="Email" />
                 <Input type="password" placeholder="Password" />
             </FormContainer>
@@ -23,13 +23,13 @@ export function LoginForm() {
             <Marginer direction="vertical" margin={10} />
             <MutedLink href="#">Forget you password?</MutedLink>
             <Marginer direction="vertical" margin="1.4em" />
-            <SubmitButton type="submit">Sign In</SubmitButton>
+            <SubmitButton type="submit">Sign In</SubmitButton> */}
             <Marginer direction="vertical" margin="1em" />
             <GoogleButton onClick={signInGoogle} variant="outlined">Google</GoogleButton>
             <Marginer direction="vertical" margin="1em" />
-            <MutedLink href="#">Dont have an account?{" "}
+            {/* <MutedLink href="#">Dont have an account?{" "}
                 <BoldLink href="#" onClick={switchToSignup}>Sign up</BoldLink>
-            </MutedLink>
+            </MutedLink> */}
 
         </BoxContainer>
     );

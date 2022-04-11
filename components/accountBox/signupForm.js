@@ -9,7 +9,7 @@ import { auth } from '../../firebase'
 
 export function SignupForm() {
 
-    const [form, setForm] = useState({
+    /* const [form, setForm] = useState({
         fullname: "",
         email: "",
         password: ""
@@ -20,9 +20,9 @@ export function SignupForm() {
         console.log(form);
     }
 
-    const { switchToSignin } = useContext(AccountContext);
+    const { switchToSignin } = useContext(AccountContext); */
     return (
-        <BoxContainer>
+        {/* <BoxContainer>
             <FormContainer onSubmit={sendData}>
 
                 <Input type="text" placeholder="Full Name" value={form.fullname}
@@ -34,7 +34,7 @@ export function SignupForm() {
                 <Input type="password" placeholder="Password" value={form.password}
                     onChange={(e) =>
                         setForm({ ...form, password: e.target.value })} />
-                {/* <Input type="password" placeholder="Confirm Password" /> */}
+                {/* <Input type="password" placeholder="Confirm Password" /> 
 
                 <Marginer direction="vertical" margin="1.4em" />
                 <SubmitButton type="submit">Sign Up</SubmitButton>
@@ -44,6 +44,6 @@ export function SignupForm() {
             <MutedLink href="#">Already have an account?
                 <BoldLink href="#" onClick={switchToSignin}>Sign in</BoldLink>
             </MutedLink>
-        </BoxContainer>
+        </BoxContainer> */}
     );
 }
