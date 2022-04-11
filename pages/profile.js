@@ -15,10 +15,10 @@ function Profile() {
                 <UserAvatar src={user.photoURL} onClick={() => auth.signOut()} />
                 <UserMenu />
             </IconsContainer>
-            <ReactCSSTransitionGroup transitionName="anim" transitionAppear={true} transitionAppearTimeout={5000} transitionEnter={false} transitionLeave={false}>
+            <ReactCSSTransitionGroup transitionName="anim" transitionAppear={true} transitionAppearTimeout={2000} transitionEnter={false} transitionLeave={false}>
                 <Title>USER PROFILE</Title>
             </ReactCSSTransitionGroup>
-            <ReactCSSTransitionGroup transitionName="anim" transitionAppear={true} transitionAppearTimeout={5000} transitionEnter={false} transitionLeave={false}>
+            <ReactCSSTransitionGroup transitionName="anim" transitionAppear={true} transitionAppearTimeout={2000} transitionEnter={false} transitionLeave={false}>
                 <ProfileContainer>
                     <DataUserContainer>
                         <h3>Nombre y apellido del usuario: </h3>
