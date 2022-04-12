@@ -14,9 +14,10 @@ import dynamic from "next/dynamic";
 const Picker = dynamic(() => import('emoji-picker-react'), { ssr: false });
 import FormUploadDoc from "./FormsCreateChats/FormUploadDoc";
 import FormUploadImage from "./FormsCreateChats/FormUploadImage";
-
+import GroupsIcon from '@mui/icons-material/Groups';
 
 function ChatScreen({ chat, messages }) {
+    console.log(chat)
     const [user] = useAuthState(auth);
     const [input, setInput] = useState("");
     const endOfMessagesRef = useRef(null)
@@ -107,17 +108,29 @@ function ChatScreen({ chat, messages }) {
     return (
         <Container>
             <Header>
-                {recipient ? (
-                    <Avatar src={recipient?.photoURL} />
-                ) : (
-                    <Avatar>{recipientEmail[0]}</Avatar>
-                )}
+                {chat.type === "groupChat"
+                    ?
+                    (<Avatar><GroupsIcon /></Avatar>)
+                    : recipient
+                        ?
+                        (
+                            <Avatar src={recipient?.photoURL} />
+                        ) :
+                        (
+                            <Avatar>{recipientEmail[0]}</Avatar>
+                        )}
                 <HeaderInformation>
-                    {recipient ? (
-                        <h3>{recipient?.name}</h3>
-                    ) : (
-                        <h3>{recipientEmail}</h3>
-                    )}
+                    {chat.type === "groupChat"
+                        ?
+                        (<h3>{chat.nameGroup}</h3>)
+                        : recipient
+                            ?
+                            (
+                                <h3>{recipient?.name}</h3>
+                            ) :
+                            (
+                                <h3>{recipientEmail}</h3>
+                            )}
                     {recipientSnapshot ? (
                         <p>Last active: {" "}
                             {recipient?.lastSeen?.toDate() ? (
