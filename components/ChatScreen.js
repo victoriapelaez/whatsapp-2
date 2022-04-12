@@ -90,6 +90,7 @@ function ChatScreen({ chat, messages }) {
             },
             user: user.email,
             photoUrl: user.photoURL,
+            userName: user.displayName
         })
 
         setInput("");
