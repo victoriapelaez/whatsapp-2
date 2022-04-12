@@ -4,13 +4,10 @@ import { auth } from "../firebase";
 import moment from "moment";
 import { useEffect } from "react";
 import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf';
-import { IconButton } from "@mui/material";
 import { Circle } from "better-react-spinkit"
-import { ArchiveOutlined } from "@mui/icons-material";
 
 function Message({ user, message, endOfMessagesRef }) {
     const [userLoggedIn] = useAuthState(auth);
-
     const TypeOfMessage = user === userLoggedIn.email ? Sender : Reciever;
 
     useEffect(() => {
@@ -24,10 +21,10 @@ function Message({ user, message, endOfMessagesRef }) {
         })
     }
 
-
     return (
         <Container>
             <TypeOfMessage>
+                <p style={{ fontSize: '10px', textAlign: 'start' }}>{message.user}</p>
                 {message.message.type === "file"
                     ?
                     ((message.timestamp != undefined)
@@ -39,7 +36,6 @@ function Message({ user, message, endOfMessagesRef }) {
 
                             <PictureAsPdfIcon style={{ fontSize: '55px', color: 'red' }} />
                             <p style={{ fontSize: '13px' }}>OPEN {message.message.name}</p>
-
                         </a>
                         )
                         : (
@@ -71,7 +67,6 @@ text-align: right;
 max-width: 500px;
 word-break: break-word;
 `;
-
 
 const Sender = styled(MessageElement)`
 margin-left: auto;

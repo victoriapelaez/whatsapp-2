@@ -17,7 +17,6 @@ import FormUploadImage from "./FormsCreateChats/FormUploadImage";
 import GroupsIcon from '@mui/icons-material/Groups';
 
 function ChatScreen({ chat, messages }) {
-    console.log(chat)
     const [user] = useAuthState(auth);
     const [input, setInput] = useState("");
     const endOfMessagesRef = useRef(null)
