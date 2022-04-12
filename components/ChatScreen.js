@@ -131,6 +131,11 @@ function ChatScreen({ chat, messages }) {
                             (
                                 <h3>{recipientEmail}</h3>
                             )}
+                    {chat.type === "groupChat"
+                        ?
+                        (<p style={{fontStyle: 'italic'}}>{chat.users[0]}, {chat.users[1]}, {chat.users[2]} </p>) 
+                        :
+                        ("")}
                     {recipientSnapshot ? (
                         <p>Last active: {" "}
                             {recipient?.lastSeen?.toDate() ? (
@@ -174,19 +179,21 @@ z-index: 100;
 top: 0;
 display: flex;
 padding: 11px;
-height: 80px;
+height: 100px;
 align-items: center;
 `;
 
 const HeaderInformation = styled.div`
 margin-left: 15px;
+margin-top: 5px;
 flex: 1;
+min-height: 120px;
 > h3 {
-    margin-bottom: 3px;
+    margin-bottom: 1px;
     color: #234839 ;
 }
 > p {
-    font-size: 14px;
+    font-size: 12px;
     color: #234839 ;
 }
 `;
