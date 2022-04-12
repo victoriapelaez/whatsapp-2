@@ -23,7 +23,11 @@ function Message({ user, message, endOfMessagesRef }) {
     return (
         <Container>
             <TypeOfMessage>
-            <p style={{ fontSize: '10px', textAlign: 'start' }}>{message.user}</p>
+            {!message.userName ?
+            (<p style={{ fontSize: '10px', textAlign: 'start' }}>{message.user}</p>)
+            :
+            (<p style={{ fontSize: '10px', textAlign: 'start' }}>{message.userName}</p>)}
+            
                 {message.message.type === "file"
                     ?
                     ((message.timestamp != undefined)
