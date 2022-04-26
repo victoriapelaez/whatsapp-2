@@ -7,6 +7,16 @@ export default function SearchContainer() {
 
     const selectedTag = []
 
+    const customStyles = {
+        container: provided => ({
+            ...provided,
+            width: "250px",
+
+        }),
+        
+    };
+
+
     const loadOptions = async (inputValue) => {
         inputValue = inputValue.toLowerCase().replace(/\W/g, "");
         return new Promise((resolve => {
@@ -46,6 +56,8 @@ export default function SearchContainer() {
             <AsyncSelect
                 loadOptions={loadOptions}
                 onChange={handleOnChange}
+                styles={customStyles}
+                placeholder={<div>Type email to search</div>}
             />
 
             {
