@@ -1,11 +1,11 @@
 import styled from "styled-components"
-import SearchIcon from '@mui/icons-material/Search';
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useCollection } from "react-firebase-hooks/firestore"
 import { auth, db } from "../firebase";
 import Chat from "../components/Chat";
 import FormChat from '../components/FormsCreateChats/FormChat'
 import HeaderBox from "./HeaderBox";
+import SearchContainer from "./Search";
 
 function Sidebar() {
     const [user] = useAuthState(auth);
@@ -15,10 +15,7 @@ function Sidebar() {
     return (
         <Container>
             <HeaderBox />
-            <Search>
-                <SearchIcon />
-                <SearchInput placeholder="Search in chats" />
-            </Search>
+            <SearchContainer />
             <FormChat></FormChat>
             {/* List of Chats */}
             {chatsSnapshot?.docs.map((chat) => (
@@ -46,17 +43,4 @@ scrollbar-width: none;
 
 `;
 
-const Search = styled.div`
-display: flex;
-align-items: center;
-padding: 20px;
-border-radius: 2px;
-`;
 
-const SearchInput = styled.input`
-outline-width: 0;
-border: none;
-border-radius: 10px;
-flex: 1;
-background-color: white;
-`;
