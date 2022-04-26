@@ -27,21 +27,17 @@ export default function FormDialog() {
   const [user] = useAuthState(auth);
   const userChatRef = db.collection('chats').where('users', 'array-contains', user.email)
   const [chatsSnapshot] = useCollection(userChatRef)
-  const [input, setInput] = React.useState("")
-  const [input2, setInput2] = React.useState("")
+  const [input, setInput] = React.useState()
   const [nameGroup, setNameGroup] = React.useState("")
 
   const createChatGroup = () => {
-    console.log("createChat", input, input2);
-
-    if (!input || !input2) return null;
-    if (EmailValidator.validate(input) && EmailValidator.validate(input2) ) {
-      db.collection('chats').add({
-        users: [user.email, input, input2],
-        type: "groupChat",
-        nameGroup: nameGroup
-      })
-    }
+    if (!input) return null;
+    const users = input.trim().split(",").concat(user.email)
+    db.collection('chats').add({
+      users: users,
+      type: "groupChat",
+      nameGroup: nameGroup
+    })
     handleClose();
   };
 
@@ -60,22 +56,12 @@ export default function FormDialog() {
           <TextField
             autoFocus
             margin="dense"
-            label="Email Address 1"
-            type="email"
+            label="Emails Address separated by commas "
+            type="text"
             fullWidth
             variant="standard"
             value={input}
             onChange={e => setInput(e.target.value)}
-          />
-          <TextField
-            autoFocus
-            margin="dense"
-            label="Email Address 2"
-            type="email"
-            fullWidth
-            variant="standard"
-            value={input2}
-            onChange={e => setInput2(e.target.value)}
           />
           <TextField
             autoFocus

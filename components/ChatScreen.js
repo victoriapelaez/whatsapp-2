@@ -133,7 +133,11 @@ function ChatScreen({ chat, messages }) {
                             )}
                     {chat.type === "groupChat"
                         ?
-                        (<p style={{fontStyle: 'italic'}}>{chat.users[0]}, {chat.users[1]}, {chat.users[2]} </p>) 
+                        (<UsersContainer key={user}>
+                            {chat.users.map((user) => {
+                                return (user + ", ")
+                            })}
+                        </UsersContainer>)
                         :
                         ("")}
                     {recipientSnapshot ? (
@@ -178,25 +182,33 @@ background-color: #DBF4EA;
 z-index: 100;
 top: 0;
 display: flex;
-padding: 11px;
-height: 100px;
+padding-left: 10px;
+height: fit-content;
 align-items: center;
 `;
 
 const HeaderInformation = styled.div`
 margin-left: 15px;
-margin-top: 5px;
 flex: 1;
-min-height: 120px;
+
 > h3 {
-    margin-bottom: 1px;
+    margin-top: 10px;
+    margin-bottom: 5px;
     color: #234839 ;
 }
+
 > p {
     font-size: 12px;
     color: #234839 ;
 }
 `;
+
+const UsersContainer = styled.div`
+display: flex;
+font-size: 12px;
+word-break: break-word;
+`;
+
 const HeaderIcons = styled.div`
 display: flex;
 `;
